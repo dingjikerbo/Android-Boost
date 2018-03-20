@@ -11,9 +11,11 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
+                arguments "-DANDROID_ARM_NEON=TRUE"
                 cppFlags "-fexceptions"
             }
         }
+        ndk.abiFilters 'armeabi-v7a'
     }
     buildTypes {
         release {
