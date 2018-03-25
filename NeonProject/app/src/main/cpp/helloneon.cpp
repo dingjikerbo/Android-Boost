@@ -52,12 +52,16 @@ Java_com_example_inuker_neon_MainActivity_mytest(JNIEnv *env, jobject thiz, jint
 	env->ReleaseIntArrayElements(A, AA, 0);
 }
 
+short B[8] = {
+        1, 2, 3, 4, 5, 6, 7, 8
+};
+
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_example_inuker_neon_MainActivity_testInstruction(JNIEnv *env, jobject thiz) {
-	uint8_t A[16] = {
+	int A[16] = {
 			1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
 	};
-	int16x8_t D = vmull_high_s8(vld1_u8(A), vld1_u8(A + 8));
-	show16q(D);
+	int32x2_t D = vpadd_s32(vld1_s32(A), vld1_s32(A + 2));
+	show32(D);
 }

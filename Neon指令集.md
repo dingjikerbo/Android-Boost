@@ -5,6 +5,10 @@ int8_t *bottom_base = new int8_t [20] {
 int8x16_t q_b2 = vld1q_s8(bottom_base + 1);
 从数组读16个sint8到8x16的向量中
 
+# vst1q_s8
+void vst1q_s8 (int8_t * ptr, int8x16_t val)
+表示给8x16的向量存到ptr数组中
+
 # vget_low_s8
 int8x8_t low = vget_low_s8(q);
 其中q是int8x16_t的，vget_low_s8是取该Q寄存器的低半部分
@@ -70,37 +74,46 @@ int16x4_t b = vqmovn_s32(a);
 int16x8_t vcombine_s16(int16x4_t __p0, int16x4_t __p1)
 表示给两个16x4的向量拼接成一个16x8的向量，这里p0在前，p1在后
 
-# vst1q_s8
-void vst1q_s8 (int8_t * ptr, int8x16_t val)
-表示给8x16的向量存到ptr数组中
-
 # vpadd_s32
-int32x2_t vpadd_s32 (int32x2_t a, int32x2_t b)
-即将a向量的两个元素相加，b向量的两个元素相加，两个结果生成新向量。 
+##### int32x2_t vpadd_s32 (int32x2_t a, int32x2_t b)
+> 即将a向量的两个元素相加，b向量的两个元素相加，两个结果生成新向量。
+```
+int A[16] = {
+		1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+};
+int32x2_t D = vpadd_s32(vld1_s32(A), vld1_s32(A + 2));
+D = {3, 7}
+``` 
 
 # vpadalq_s16
-int32x4_t vpadalq_s16 (int32x4_t a, int16x8_t b)
-先将b两两相加，得到一个16x4的向量，然后和a向量相加即可。
-所谓的b两两相加，即b[0]+b[1]，b[2]+b[3]，b[4]+b[5], b[6]+b[7]
-int32x4_t a = vld1q_s32(array1);
-int16x8_t b = vld1q_s16(array2);
-int32x4_t c = vpadalq_s16(a, b);
-
-# int16x8_t vmull_high_s8 (int8x16_t a, int8x16_t b)
-
-
+##### int32x4_t vpadalq_s16 (int32x4_t a, int16x8_t b)
+ > 先将b两两相加，得到一个16x4的向量，然后和a向量相加即可。所谓的b两两相加，即b[0]+b[1]，b[2]+b[3]，b[4]+b[5], b[6]+b[7]
+```
+int A[16] = {
+		1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+};
+short B[8] = {
+        1, 2, 3, 4, 5, 6, 7, 8
+};
+int32x4_t Q = vpadalq_s16(vld1q_s32(A), vld1q_s16(B));
+Q = {4, 9, 14, 19}
+```
 
 # vmul/vmull
-uint32x4_t vmull_u16 (uint16x4_t a, uint16x4_t b)
+##### uint32x4_t vmull_u16 (uint16x4_t a, uint16x4_t b)
+```
 uint8_t A[16] = {
     1, 2, 3, 4, 5, 6, 7, 8, 
     9, 10, 11, 12, 13, 14, 15, 16
 };
 int16x8_t D = vmull_u8(vld1_u8(A), vld1_u8(A + 8));
 D = {9 20 33 48 65 84 105 128}
+```
 
 # vreinterpretq/vreinterpret
-int32x2_t vreinterpret_s32_u8 (uint8x8_t)
+##### int32x2_t vreinterpret_s32_u8 (uint8x8_t)
+```
 uint8x8_t q0 = {1, 2, 3, 4, 5, 6, 7, 8}
 uint32x2_t q1 = vreinterpret_s32_u8(q0);
 q1 = {0x04030201, 0x08070605}
+```

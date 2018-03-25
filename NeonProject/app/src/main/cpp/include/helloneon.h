@@ -18,5 +18,7 @@
 extern int getCurrentMillisecond();
 extern void show8(int8x8_t d);
 extern void show16q(int16x8_t q);
+extern void show32q(int32x4_t q);
+extern void show32(int32x2_t d);
 
 #endif //NEONPROJECT_HELLONEON_H
