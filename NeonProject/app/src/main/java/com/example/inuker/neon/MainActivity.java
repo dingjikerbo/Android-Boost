@@ -51,6 +51,7 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 mytest(A, count);
+                testInstruction();
                 mTesting = false;
                 mBtnTest.post(new Runnable() {
                     @Override
@@ -68,4 +69,7 @@ public class MainActivity extends Activity {
      * which is packaged with this application.
      */
     public native void mytest(int[] A, int len);
+
+
+    public native void testInstruction();
 }
