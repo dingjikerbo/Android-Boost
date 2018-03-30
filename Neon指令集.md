@@ -62,26 +62,60 @@ Q = {3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3}
 ```
 用于生成一个向量存在Q寄存器中，向量中都用n填充，这两个函数功能一样。
 
-# vaddq_u32
-int8x16_t q_bb = vaddq_u8(q_b1, q_b2);
-此处的q_b1和q_b2都是int8x16_t的，返回的向量是两个向量之和
+# vaddq_s32
+##### int32x4_t vaddq_s32 (int32x4_t, int32x4_t) 
+```
+int *bottom_base = new int[8] {
+    1, 2, 3, 4, 5, 6, 7, 8
+};
+int32x4_t q1 = vld1q_s32(bottom_base);
+int32x4_t q2 = vld1q_s32(bottom_base + 4);
+int32x4_t q3 = vaddq_s32(q1, q2);
+
+q3 = {6, 8, 10, 12}
+```
+返回的向量是两个向量之和
 
 # vmlaq_n_s32(a, b, c)
-int32x4_t a = vld1q_s32(array1);
-int32x4_t b = vld1q_s32(array1 + 2);
-int32_t c = 10;
-int32x4_t d = vmlaq_n_s32(a, b, c);
-b向量乘以c，然后加上a向量，这里c只是个普通整数，相当于b向量中每个数都乘以c
+##### int32x4_t vmlaq_n_s32 (int32x4_t, int32x4_t, int32_t)
+```
+int *bottom_base = new int[8] {
+    1, 2, 3, 4, 5, 6, 7, 8
+};
+int32x4_t q1 = vld1q_s32(bottom_base);
+int32x4_t q2 = vld1q_s32(bottom_base + 4);
+int32x4_t q3 = vmlaq_n_s32(q1, q2, 3);
+
+q3 = {16 20 24 28}
+```
+向量q2乘以一个系数，再加上向量q1
 
 # vmovl_s8
-int8x16_t a = vld1q_s8(array0);
-int16x8_t b = vmovl_s8(vget_low_s8(a));
-int16x8_t c = vmovl_s8(vget_high_s8(a));
-这里vmovl_s8意思是给s8扩充成s16，上面代码vget_low_s8(a)返回了8x8的向量，现在映射到了16x8的向量了
+##### int16x8_t vmovl_s8 (int8x8_t) 
+```
+int8_t *p8 = new int8_t[8] {
+    1, 2, 3, 4, 5, 6, 7, 8
+};
+int8x8_t d1 = vld1_s8(p8);
+int16x8_t q1 = vmovl_s8(d1);
+
+q1 = {1 2 3 4 5 6 7 8}
+```
+这里vmovl_s8意思是给s8扩充成s16
 
 # vqshlq_s32
-int32x4_t vqshlq_s32(int32x4_t __p0, int32x4_t __p1)
-p0向量往左移动，注意p1也是向量，当p1中是负数时意味着向右移动
+##### int32x4_t vqshlq_s32 (int32x4_t, int32x4_t)
+```
+int *p32 = new int[8] {
+    1, 2, 3, 4, 5, 6, 7, 8
+};
+int32x4_t q1 = vdupq_n_s32(1);
+int32x4_t q2 = vld1q_s32(p32);
+int32x4_t q3 = vqshlq_s32(q1, q2);
+
+q3 = {2 4 8 16}
+```
+q1向量往左移动，注意q2也是向量，当q1中是负数时意味着向右移动
 
 # vsli_n_s8
 int8x8_t vsli_n_s8 (int8x8_t a, int8x8_t b, const int n)
