@@ -59,13 +59,12 @@ short B[8] = {
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_example_inuker_neon_MainActivity_testInstruction(JNIEnv *env, jobject thiz) {
-    int *p32 = new int[8] {
+    int8_t *p8 = new int8_t[8] {
             1, 2, 3, 4, 5, 6, 7, 8
     };
-    int32x4_t q1 = vdupq_n_s32(1);
-	int32x4_t q2 = vld1q_s32(p32);
+    int8x8_t a = vld1_s8(p8);
+    int8x8_t b = vdup_n_s8(5);
+    int8x8_t c = vsli_n_s8(a, b, 2);
 
-	int32x4_t q3 = vqshlq_s32(q1, q2);
-
-    show32q(q3);
+    show8(c);
 }

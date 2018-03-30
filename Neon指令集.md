@@ -8,7 +8,7 @@ int8x16_t Q = vld1q_s8(bottom_base);
 
 Q = {1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16}
 ```
-从数组读16个sint8到8x16的向量中
+> 从数组读16个sint8到8x16的向量中
 
 # vst1q_s8
 ##### void vst1q_s8 (int8_t *, int8x16_t)
@@ -22,7 +22,7 @@ vst1q_s8(out, Q);
 
 out = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
 ```
-表示给8x16的向量存到数组中
+> 表示给8x16的向量存到数组中
 
 # vget_low_s8/vget_high_s8
 ##### int8x8_t vget_low_s8 (int8x16_t) 
@@ -38,7 +38,7 @@ int8x8_t D1 = vget_high_s8(Q);
 D0 = {1 2 3 4 5 6 7 8}
 D1 = {9 10 11 12 13 14 15 16}
 ```
-vget_low_s8是取Q寄存器的低半部分，vget_high_s8是取Q寄存器的低半部分
+> vget_low_s8是取Q寄存器的低半部分，vget_high_s8是取Q寄存器的低半部分
 
 # vgetq_lane_s8(low, 0)
 ##### int8_t vgetq_lane_s8 (int8x16_t, const int)
@@ -51,7 +51,7 @@ int a = vgetq_lane_s8(Q, 3);
 
 a = 4
 ```
-是取Q寄存器向量中的第n个lane
+> 是取Q寄存器向量中的第n个lane
 
 # vdupq_n_s8/vmovq_n_s8
 ##### int8x16_t vdupq_n_s8 (int8_t) 
@@ -60,7 +60,7 @@ a = 4
 int8x16_t Q = vdupq_n_s8(3);
 Q = {3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3}
 ```
-用于生成一个向量存在Q寄存器中，向量中都用n填充，这两个函数功能一样。
+> 用于生成一个向量存在Q寄存器中，向量中都用n填充，这两个函数功能一样。
 
 # vaddq_s32
 ##### int32x4_t vaddq_s32 (int32x4_t, int32x4_t) 
@@ -74,7 +74,7 @@ int32x4_t q3 = vaddq_s32(q1, q2);
 
 q3 = {6, 8, 10, 12}
 ```
-返回的向量是两个向量之和
+> 返回的向量是两个向量之和
 
 # vmlaq_n_s32(a, b, c)
 ##### int32x4_t vmlaq_n_s32 (int32x4_t, int32x4_t, int32_t)
@@ -88,7 +88,7 @@ int32x4_t q3 = vmlaq_n_s32(q1, q2, 3);
 
 q3 = {16 20 24 28}
 ```
-向量q2乘以一个系数，再加上向量q1
+> 向量q2乘以一个系数，再加上向量q1
 
 # vmovl_s8
 ##### int16x8_t vmovl_s8 (int8x8_t) 
@@ -101,7 +101,7 @@ int16x8_t q1 = vmovl_s8(d1);
 
 q1 = {1 2 3 4 5 6 7 8}
 ```
-这里vmovl_s8意思是给s8扩充成s16
+> 这里vmovl_s8意思是给s8扩充成s16
 
 # vqshlq_s32
 ##### int32x4_t vqshlq_s32 (int32x4_t, int32x4_t)
@@ -115,15 +115,21 @@ int32x4_t q3 = vqshlq_s32(q1, q2);
 
 q3 = {2 4 8 16}
 ```
-q1向量往左移动，注意q2也是向量，当q1中是负数时意味着向右移动
+> q1向量往左移动，注意q2也是向量，当q1中是负数时意味着向右移动
 
 # vsli_n_s8
-int8x8_t vsli_n_s8 (int8x8_t a, int8x8_t b, const int n)
-这个函数坑很多，首先b向量左移n个bit位，然后空出来的bit位用a的低n个bit位替换。
-int8x8_t a = vld1_s8(array0);
-int8x8_t b = vdup_n_s8(5);
-int8x8_t c = vsli_n_s8(a, b, 2);
-假如a的第一个数是10，则此处先5 << 2为10100，12的二进制为1010，所以最后结果为10110，即22.
+##### int8x8_t vsli_n_s8 (int8x8_t, int8x8_t, const int)
+```
+int8_t *p8 = new int8_t[8] {
+    1, 2, 3, 4, 5, 6, 7, 8
+};
+int8x8_t d1 = vld1_s8(p8);
+int8x8_t d2 = vdup_n_s8(5);
+int8x8_t d3 = vsli_n_s8(d1, d2, 2);
+
+d3 = {21 22 23 20 21 22 23 20}
+```
+> 首先d2向量的元素左移2个bit位，然后空出来的bit位用d1向量对应元素的低2个bit位替换。
 
 # vqshrn_n_s32
 int16x4_t vqshrn_n_s32 (int32x4_t a, const int n)
