@@ -22,6 +22,25 @@ void show8(int8x8_t d) {
 	     vget_lane_s8(d, 7));
 }
 
+void show8q(int8x16_t q) {
+    LOGD("%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d", vgetq_lane_s8(q, 0),
+         vgetq_lane_s8(q, 1),
+         vgetq_lane_s8(q, 2),
+         vgetq_lane_s8(q, 3),
+         vgetq_lane_s8(q, 4),
+         vgetq_lane_s8(q, 5),
+         vgetq_lane_s8(q, 6),
+         vgetq_lane_s8(q, 7),
+		 vgetq_lane_s8(q, 8),
+		 vgetq_lane_s8(q, 9),
+		 vgetq_lane_s8(q, 10),
+		 vgetq_lane_s8(q, 11),
+		 vgetq_lane_s8(q, 12),
+		 vgetq_lane_s8(q, 13),
+		 vgetq_lane_s8(q, 14),
+		 vgetq_lane_s8(q, 15));
+}
+
 void show16q(int16x8_t q) {
 	LOGD("%d %d %d %d %d %d %d %d", vgetq_lane_s16(q, 0),
 	     vgetq_lane_s16(q, 1),

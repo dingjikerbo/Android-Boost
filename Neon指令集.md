@@ -1,31 +1,66 @@
 # vld1q_s8
-int8_t *bottom_base = new int8_t [20] {
+##### int8x16_t vld1q_s8 (const int8_t *) 
+```
+int8_t *bottom_base = new int8_t[20] {
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 21, 22, 23,24
 };
-int8x16_t q_b2 = vld1q_s8(bottom_base + 1);
+int8x16_t Q = vld1q_s8(bottom_base);
+
+Q = {1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16}
+```
 从数组读16个sint8到8x16的向量中
 
 # vst1q_s8
-void vst1q_s8 (int8_t * ptr, int8x16_t val)
-表示给8x16的向量存到ptr数组中
+##### void vst1q_s8 (int8_t *, int8x16_t)
+```
+int8_t *bottom_base = new int8_t[16] {
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+};
+int8x16_t Q = vld1q_s8(bottom_base);
+int8_t *out = new int8_t[16];
+vst1q_s8(out, Q);
 
-# vget_low_s8
-int8x8_t low = vget_low_s8(q);
-其中q是int8x16_t的，vget_low_s8是取该Q寄存器的低半部分
+out = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
+```
+表示给8x16的向量存到数组中
 
-# vget_high_s8
-和上面相反，取Q寄存器的高半部分
+# vget_low_s8/vget_high_s8
+##### int8x8_t vget_low_s8 (int8x16_t) 
+##### int8x8_t vget_high_s8 (int8x16_t)
+```
+int8_t *bottom_base = new int8_t[16] {
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+};
+int8x16_t Q = vld1q_s8(bottom_base);
+int8x8_t D0 = vget_low_s8(Q);
+int8x8_t D1 = vget_high_s8(Q);
 
-# vget_lane_u8(low, 0)
-vget_lane_u8(low, 0)
-是取D寄存器向量中的第n个lane。比如上述数组中第0个是1
+D0 = {1 2 3 4 5 6 7 8}
+D1 = {9 10 11 12 13 14 15 16}
+```
+vget_low_s8是取Q寄存器的低半部分，vget_high_s8是取Q寄存器的低半部分
 
-# vgetq_lane_u8
-是取Q寄存器向量中的第n个lane。
+# vgetq_lane_s8(low, 0)
+##### int8_t vgetq_lane_s8 (int8x16_t, const int)
+```
+int8_t *bottom_base = new int8_t[16] {
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+};
+int8x16_t Q = vld1q_s8(bottom_base);
+int a = vgetq_lane_s8(Q, 3);
 
-# vdupq_n_u8
-uint8x16_t vec128 = vdupq_n_u8(1);
-用于生成一个向量存在Q寄存器中，向量中都用n填充
+a = 4
+```
+是取Q寄存器向量中的第n个lane
+
+# vdupq_n_s8/vmovq_n_s8
+##### int8x16_t vdupq_n_s8 (int8_t) 
+##### int8x16_t vmovq_n_s8 (int8_t) 
+```
+int8x16_t Q = vdupq_n_s8(3);
+Q = {3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3}
+```
+用于生成一个向量存在Q寄存器中，向量中都用n填充，这两个函数功能一样。
 
 # vaddq_u32
 int8x16_t q_bb = vaddq_u8(q_b1, q_b2);
@@ -37,7 +72,6 @@ int32x4_t b = vld1q_s32(array1 + 2);
 int32_t c = 10;
 int32x4_t d = vmlaq_n_s32(a, b, c);
 b向量乘以c，然后加上a向量，这里c只是个普通整数，相当于b向量中每个数都乘以c
-
 
 # vmovl_s8
 int8x16_t a = vld1q_s8(array0);

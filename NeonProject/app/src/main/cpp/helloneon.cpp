@@ -29,7 +29,7 @@ JNIEXPORT void JNICALL
 Java_com_example_inuker_neon_MainActivity_mytest(JNIEnv *env, jobject thiz, jintArray A, jint len) {
 	jint *AA = env->GetIntArrayElements(A, 0);
 
-	int times = 1000;
+	int times = 10;
 	int duration = 0;
 	int sum = 0;
 
@@ -59,9 +59,11 @@ short B[8] = {
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_example_inuker_neon_MainActivity_testInstruction(JNIEnv *env, jobject thiz) {
-	int A[16] = {
-			1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
-	};
-	int32x2_t D = vpadd_s32(vld1_s32(A), vld1_s32(A + 2));
-	show32(D);
+    int8_t *bottom_base = new int8_t[16] {
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+    };
+//    int8x16_t Q = vld1q_s8(bottom_base);
+//    int8x16_t Q = vdupq_n_s8(3);
+    int8x16_t Q = vmovq_n_s8(3);
+    show8q(Q);
 }
