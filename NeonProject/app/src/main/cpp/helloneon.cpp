@@ -64,7 +64,7 @@ Java_com_example_inuker_neon_MainActivity_testInstruction(JNIEnv *env, jobject t
     };
 	int32x2_t d1 = vld1_s32(p32);
     int32x2_t d2 = vld1_s32(p32 + 4);
-    int32x4_t q1 = vcombine_s32(d1, d2);
+    int32x2_t d3 = vpadd_s32(d1, d2);
 
-    show32q(q1);
+    show32(d3);
 }
