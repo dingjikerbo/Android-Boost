@@ -41,6 +41,13 @@ void show8q(int8x16_t q) {
 		 vgetq_lane_s8(q, 15));
 }
 
+void show16(int16x4_t d) {
+    LOGD("%d %d %d %d", vget_lane_s16(d, 0),
+         vget_lane_s16(d, 1),
+         vget_lane_s16(d, 2),
+         vget_lane_s16(d, 3));
+}
+
 void show16q(int16x8_t q) {
 	LOGD("%d %d %d %d %d %d %d %d", vgetq_lane_s16(q, 0),
 	     vgetq_lane_s16(q, 1),

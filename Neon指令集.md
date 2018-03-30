@@ -90,7 +90,7 @@ q3 = {16 20 24 28}
 ```
 > 向量q2乘以一个系数，再加上向量q1
 
-# vmovl_s8
+# vmovl_s8/vqmovn_s32
 ##### int16x8_t vmovl_s8 (int8x8_t) 
 ```
 int8_t *p8 = new int8_t[8] {
@@ -101,7 +101,7 @@ int16x8_t q1 = vmovl_s8(d1);
 
 q1 = {1 2 3 4 5 6 7 8}
 ```
-> 这里vmovl_s8意思是给s8扩充成s16
+> 这里vmovl_s8意思是给s8扩充成s16，而vqmovn_s32是给s32缩为s16
 
 # vqshlq_s32
 ##### int32x4_t vqshlq_s32 (int32x4_t, int32x4_t)
@@ -132,21 +132,32 @@ d3 = {21 22 23 20 21 22 23 20}
 > 首先d2向量的元素左移2个bit位，然后空出来的bit位用d1向量对应元素的低2个bit位替换。
 
 # vqshrn_n_s32
-int16x4_t vqshrn_n_s32 (int32x4_t a, const int n)
-int32x4_t a = vld1q_s32(array1);
-int16x4_t c = vqshrn_n_s32(a, 2);
-这个右移和左移的区别在右移传入的是整数，而左移传入的是向量，支持每个lane的shift都不一样
-且要注意这里的shift不能超过16
+##### int16x4_t vqshrn_n_s32 (int32x4_t, const int)
+```
+int *p32 = new int[4] {
+    4, 8, 12, 16
+};
+int32x4_t q1 = vld1q_s32(p32);
+int16x4_t d1 = vqshrn_n_s32(q1, 2);
+
+d1 = {1, 2, 3, 4}
+```
+> 这个右移和左移的区别在右移传入的是整数，而左移传入的是向量，支持每个lane的shift都不一样且要注意这里的shift不能超过16
 另外这里是饱和，且输出相对输入被折半了，所谓饱和就是当值超出范围时被限定住
 
-# vqmovn_s32
-这个带后缀n表示结果会narrow了，之前是s32，结果是s16
-int32x4_t a = vld1q_s32(array1);
-int16x4_t b = vqmovn_s32(a);
-
 # vcombine_s16
-int16x8_t vcombine_s16(int16x4_t __p0, int16x4_t __p1)
-表示给两个16x4的向量拼接成一个16x8的向量，这里p0在前，p1在后
+##### int16x8_t vcombine_s16 (int16x4_t, int16x4_t)
+```
+int *p32 = new int[8] {
+	1, 2, 3, 4, 5, 6, 7, 8
+};
+int32x2_t d1 = vld1_s32(p32);
+int32x2_t d2 = vld1_s32(p32 + 4);
+int32x4_t q1 = vcombine_s32(d1, d2);
+
+q1 = {1 2 5 6}
+```
+> 给两个向量拼接成一个16x8的向量，这里p0在前，p1在后
 
 # vpadd_s32
 ##### int32x2_t vpadd_s32 (int32x2_t a, int32x2_t b)
