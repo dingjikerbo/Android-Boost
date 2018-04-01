@@ -13,10 +13,7 @@ public class MainActivity extends Activity {
 
     private TextView mTvDesc;
 
-    // Used to load the 'native-lib' library on application startup.
-    static {
-        System.loadLibrary("native-lib");
-    }
+    private Tester mTester = new Tester2();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,20 +39,13 @@ public class MainActivity extends Activity {
     }
 
     private void startTest() {
-        final int count = 1000000;
-        final int[] A = new int[count];
-        for (int i = 0; i < A.length; i++) {
-            A[i] = (byte) (i & 0xff);
-        }
-        final int[] B = new int[count];
-        for (int i = 0; i < B.length; i++) {
-            B[i] = (byte) (i & 0xf);
-        }
+        mTester.prepare();
+
         new Thread() {
             @Override
             public void run() {
-                testNeon(A, B, count);
-                testInstruction();
+                mTester.test();
+
                 mTesting = false;
                 mBtnTest.post(new Runnable() {
                     @Override
@@ -68,13 +58,4 @@ public class MainActivity extends Activity {
 
     }
 
-    /**
-     * 测试c和neon，对比性能
-     */
-    public native void testNeon(int[] A, int[] B, int len);
-
-    /**
-     * 测试指令
-     */
-    public native void testInstruction();
 }

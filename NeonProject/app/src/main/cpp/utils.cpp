@@ -1,7 +1,7 @@
 //
 // Created by 李文田 on 2018/3/21.
 //
-#include "helloneon.h"
+#include "main.h"
 #include <time.h>
 
 int getCurrentMillisecond() {
