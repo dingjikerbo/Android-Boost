@@ -38,11 +38,11 @@ date: 2018-02-26 18:31:00
  - [gemmlowp](https://github.com/google/gemmlowp)
  - [NNPACK](https://github.com/Maratyszcza/NNPACK)
  - [convnet-benchmarks](https://github.com/soumith/convnet-benchmarks)
- - [Compute Library](https://community.arm.com/cn/b/blog/posts/announcing-the-compute-library-17-9-cn)
+ - [Compute Library](https://github.com/ARM-software/ComputeLibrary)
  - [mobile-deep-learning](https://github.com/baidu/mobile-deep-learning)
  - [ncnn](https://github.com/Tencent/ncnn)
  - [Caffe-HRT](https://github.com/OAID/Caffe-HRT) 用compute library加速caffe
- - Ne10
+ - [Ne10](http://projectne10.github.io/Ne10/)
  - Eigen
  - libyuv
 

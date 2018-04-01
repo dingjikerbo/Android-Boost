@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/liwentian/dingjikerbo/Android-Boost/NE10Demo/app/build/intermediates/res/merged/debug/values-sw720dp-land-v13_values-sw720dp-land-v13.arsc.flat",
+            "outputFile": "/Users/dingjikerbo/dingjikerbo/Android-Boost/NE10Demo/app/build/intermediates/res/merged/debug/values-sw720dp-land-v13_values-sw720dp-land-v13.arsc.flat",
             "map": [
                 {
-                    "source": "/Users/liwentian/dingjikerbo/Android-Boost/NE10Demo/app/src/main/res/values-sw720dp-land/dimens.xml",
+                    "source": "/Users/dingjikerbo/dingjikerbo/Android-Boost/NE10Demo/app/src/main/res/values-sw720dp-land/dimens.xml",
                     "from": {
                         "startLines": "6",
                         "startColumns": "4",
@@ -23,10 +23,34 @@
             ]
         },
         {
-            "outputFile": "/Users/liwentian/dingjikerbo/Android-Boost/NE10Demo/app/build/intermediates/res/merged/debug/values_values.arsc.flat",
+            "outputFile": "/Users/dingjikerbo/dingjikerbo/Android-Boost/NE10Demo/app/build/intermediates/res/merged/debug/values-v14_values-v14.arsc.flat",
             "map": [
                 {
-                    "source": "/Users/liwentian/dingjikerbo/Android-Boost/NE10Demo/app/src/main/res/values/dimens.xml",
+                    "source": "/Users/dingjikerbo/dingjikerbo/Android-Boost/NE10Demo/app/src/main/res/values-v14/styles.xml",
+                    "from": {
+                        "startLines": "7",
+                        "startColumns": "4",
+                        "startOffsets": "220",
+                        "endLines": "9",
+                        "endColumns": "12",
+                        "endOffsets": "366"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "4",
+                        "endColumns": "12",
+                        "endOffsets": "201"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/Users/dingjikerbo/dingjikerbo/Android-Boost/NE10Demo/app/build/intermediates/res/merged/debug/values_values.arsc.flat",
+            "map": [
+                {
+                    "source": "/Users/dingjikerbo/dingjikerbo/Android-Boost/NE10Demo/app/src/main/res/values/dimens.xml",
                     "from": {
                         "startLines": "3,4",
                         "startColumns": "4,4",
@@ -43,7 +67,24 @@
                     }
                 },
                 {
-                    "source": "/Users/liwentian/dingjikerbo/Android-Boost/NE10Demo/app/src/main/res/values/styles.xml",
+                    "source": "/Users/dingjikerbo/dingjikerbo/Android-Boost/NE10Demo/app/src/main/res/values/strings.xml",
+                    "from": {
+                        "startLines": "4,3,5",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "98,56,151",
+                        "endColumns": "52,41,52",
+                        "endOffsets": "146,93,199"
+                    },
+                    "to": {
+                        "startLines": "4,5,6",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "169,222,264",
+                        "endColumns": "52,41,52",
+                        "endOffsets": "217,259,312"
+                    }
+                },
+                {
+                    "source": "/Users/dingjikerbo/dingjikerbo/Android-Boost/NE10Demo/app/src/main/res/values/styles.xml",
                     "from": {
                         "startLines": "6,15",
                         "startColumns": "4,4",
@@ -60,31 +101,14 @@
                         "endColumns": "12,12",
                         "endOffsets": "603,763"
                     }
-                },
-                {
-                    "source": "/Users/liwentian/dingjikerbo/Android-Boost/NE10Demo/app/src/main/res/values/strings.xml",
-                    "from": {
-                        "startLines": "4,3,5",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "98,56,151",
-                        "endColumns": "52,41,52",
-                        "endOffsets": "146,93,199"
-                    },
-                    "to": {
-                        "startLines": "4,5,6",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "169,222,264",
-                        "endColumns": "52,41,52",
-                        "endOffsets": "217,259,312"
-                    }
                 }
             ]
         },
         {
-            "outputFile": "/Users/liwentian/dingjikerbo/Android-Boost/NE10Demo/app/build/intermediates/res/merged/debug/values-v11_values-v11.arsc.flat",
+            "outputFile": "/Users/dingjikerbo/dingjikerbo/Android-Boost/NE10Demo/app/build/intermediates/res/merged/debug/values-v11_values-v11.arsc.flat",
             "map": [
                 {
-                    "source": "/Users/liwentian/dingjikerbo/Android-Boost/NE10Demo/app/src/main/res/values-v11/styles.xml",
+                    "source": "/Users/dingjikerbo/dingjikerbo/Android-Boost/NE10Demo/app/src/main/res/values-v11/styles.xml",
                     "from": {
                         "startLines": "6",
                         "startColumns": "4",
@@ -100,30 +124,6 @@
                         "endLines": "4",
                         "endColumns": "12",
                         "endOffsets": "187"
-                    }
-                }
-            ]
-        },
-        {
-            "outputFile": "/Users/liwentian/dingjikerbo/Android-Boost/NE10Demo/app/build/intermediates/res/merged/debug/values-v14_values-v14.arsc.flat",
-            "map": [
-                {
-                    "source": "/Users/liwentian/dingjikerbo/Android-Boost/NE10Demo/app/src/main/res/values-v14/styles.xml",
-                    "from": {
-                        "startLines": "7",
-                        "startColumns": "4",
-                        "startOffsets": "220",
-                        "endLines": "9",
-                        "endColumns": "12",
-                        "endOffsets": "366"
-                    },
-                    "to": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endLines": "4",
-                        "endColumns": "12",
-                        "endOffsets": "201"
                     }
                 }
             ]

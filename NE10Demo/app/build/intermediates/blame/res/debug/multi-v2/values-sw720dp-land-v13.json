@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/liwentian/dingjikerbo/Android-Boost/NE10Demo/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sw720dp-land-v13/values-sw720dp-land-v13.xml",
+            "outputFile": "/Users/dingjikerbo/dingjikerbo/Android-Boost/NE10Demo/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sw720dp-land-v13/values-sw720dp-land-v13.xml",
             "map": [
                 {
-                    "source": "/Users/liwentian/dingjikerbo/Android-Boost/NE10Demo/app/src/main/res/values-sw720dp-land/dimens.xml",
+                    "source": "/Users/dingjikerbo/dingjikerbo/Android-Boost/NE10Demo/app/src/main/res/values-sw720dp-land/dimens.xml",
                     "from": {
                         "startLines": "6",
                         "startColumns": "4",
