@@ -12,7 +12,7 @@ LOCAL_C_INCLUDES = $(LOCAL_PATH)/include
 
 LOCAL_CFLAGS += -mfpu=neon -std=c++11
 LOCAL_CFLAGS += -ffast-math -Os -funroll-loops
-#LOCAL_CFLAGS += -fvisibility=hidden
+LOCAL_CFLAGS += -fvisibility=hidden
 
 LOCAL_LDLIBS := -llog
 TARGET_ARCH_ABI := armeabi-v7a
