@@ -45,12 +45,16 @@ public class MainActivity extends Activity {
         final int count = 1000000;
         final int[] A = new int[count];
         for (int i = 0; i < A.length; i++) {
-            A[i] = i;
+            A[i] = (byte) (i & 0xff);
+        }
+        final int[] B = new int[count];
+        for (int i = 0; i < B.length; i++) {
+            B[i] = (byte) (i & 0xf);
         }
         new Thread() {
             @Override
             public void run() {
-                mytest(A, count);
+                testNeon(A, B, count);
                 testInstruction();
                 mTesting = false;
                 mBtnTest.post(new Runnable() {
@@ -65,11 +69,12 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * A native method that is implemented by the 'native-lib' native library,
-     * which is packaged with this application.
+     * 测试c和neon，对比性能
      */
-    public native void mytest(int[] A, int len);
+    public native void testNeon(int[] A, int[] B, int len);
 
-
+    /**
+     * 测试指令
+     */
     public native void testInstruction();
 }
