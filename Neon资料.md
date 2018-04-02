@@ -56,11 +56,11 @@ date: 2018-02-26 18:31:00
 
 # 其它文档
 - [ARM NEON Intrinsics函数](https://gcc.gnu.org/onlinedocs/gcc-4.8.2/gcc/ARM-NEON-Intrinsics.html)
+- [Arm官网Neon Intrinsics查询](https://developer.arm.com/technologies/neon/intrinsics)
+- [Neon指令中文](http://infocenter.arm.com/help/basic/help.jsp?topic=/com.arm.doc.dui0204ic/CJAJIIGG.html)
 - [ARM NEON Optimization. An Example](http://hilbert-space.de/?p=22)
 - [NEON 支持](https://developer.android.google.cn/ndk/guides/cpu-arm-neon.html?hl=zh-cn#build)
 - [Using your C compiler to exploit NEONTM Advanced SIMD](https://www.doulos.com/knowhow/arm/using_your_c_compiler_to_exploit_neon/Resources/using_your_c_compiler_to_exploit_neon.pdf)
 - [ARM C Language Extensions](http://infocenter.arm.com/help/topic/com.arm.doc.ihi0053b/IHI0053B_arm_c_language_extensions_2013.pdf)
-- [查询Neon的函数](https://developer.arm.com/technologies/neon/intrinsics)
-- [Neon指令中文](http://infocenter.arm.com/help/basic/help.jsp?topic=/com.arm.doc.dui0204ic/CJAJIIGG.html)
 - [NEON](https://developer.arm.com/technologies/neon)
 - [ARM NEON support in the ARM compiler](https://www.arm.com/files/pdf/NEON_Support_in_the_ARM_Compiler.pdf)
