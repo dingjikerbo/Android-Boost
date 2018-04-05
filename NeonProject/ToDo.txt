@@ -1,0 +1,12 @@
+待测试的
+
+
+https://community.arm.com/android-community/b/android/posts/arm-neon-optimization
+
+1，要测试依赖性，即调整代码顺序，测试性能，观察反汇编后代码
+2，根据不同的编译器option，反汇编后看代码
+3，要测试嵌入式汇编
+4，测试for循环中函数调用和宏对性能的影响，用不同的编译options看看效果和反汇编代码
+5，测试int16的一次load和两次load是否对性能有影响
+6，研究减少分支的办法
+7，测试Ne10在Android

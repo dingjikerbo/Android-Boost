@@ -11,16 +11,12 @@ public class MainActivity extends Activity {
     private Button mBtnTest;
     private volatile boolean mTesting;
 
-    private TextView mTvDesc;
-
-    private Tester mTester = new Tester2();
+    private Tester mTester = new Tester1();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mTvDesc = findViewById(R.id.text);
 
         mBtnTest = findViewById(R.id.test);
         mBtnTest.setOnClickListener(new View.OnClickListener() {
@@ -30,7 +26,6 @@ public class MainActivity extends Activity {
                 if (!mTesting) {
                     mTesting = true;
                     mBtnTest.setText("TESTING");
-                    mTvDesc.setText("");
                     startTest();
 
                 }
