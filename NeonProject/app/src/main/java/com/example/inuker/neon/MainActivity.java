@@ -11,7 +11,7 @@ public class MainActivity extends Activity {
     private Button mBtnTest;
     private volatile boolean mTesting;
 
-    private Tester mTester = new Tester1();
+    private Tester mTester = new Tester0();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

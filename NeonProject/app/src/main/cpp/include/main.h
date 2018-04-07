@@ -7,6 +7,7 @@
 
 #include <jni.h>
 #include <string>
+#include <stdlib.h>
 
 #include <arm_neon.h>
 #include <android/log.h>

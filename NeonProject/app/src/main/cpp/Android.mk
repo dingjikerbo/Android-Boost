@@ -15,7 +15,7 @@ LOCAL_CFLAGS += -ffast-math -Os -funroll-loops
 LOCAL_CFLAGS += -fvisibility=hidden
 
 LOCAL_LDLIBS := -llog
-LOCAL_SHARED_LIBRARIES := libNE10
+#LOCAL_SHARED_LIBRARIES := libNE10
 
 TARGET_ARCH_ABI := armeabi-v7a
 

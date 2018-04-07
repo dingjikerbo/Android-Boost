@@ -4,19 +4,21 @@
 
 #include "main.h"
 
-short B[8] = {
-		1, 2, 3, 4, 5, 6, 7, 8
-};
+
 
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_example_inuker_neon_Tester0_testInstruction(JNIEnv *env, jobject thiz) {
-//    int *p32 = new int[8] {
-//            1, 2, 3, 4, 5, 6, 7, 8
-//    };
-//	int32x2_t d1 = vld1_s32(p32);
-//    int32x2_t d2 = vld1_s32(p32 + 4);
-//    int32x2_t d3 = vpadd_s32(d1, d2);
+    int8_t A[8] = {
+            4, 8, 3, 1, 5, 6, 7, 8
+    };
 
-//    show32(d3);
+    int8x8_t d = vld1_s8(A);
+
+	int8_t *B = (int8_t *) malloc(8);
+	vst1_lane_s32(B, d, 0);
+
+	for (int i = 0; i < 8; i++) {
+		LOGD("B %d = %d", i, B[i]);
+	}
 }
