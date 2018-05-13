@@ -9,16 +9,16 @@
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_example_inuker_neon_Tester0_testInstruction(JNIEnv *env, jobject thiz) {
-    int8_t A[8] = {
-            4, 8, 3, 1, 5, 6, 7, 8
+    short A[8] = {
+            1, 2, 3, 4, 5, 6, 7, 8
     };
 
-    int8x8_t d = vld1_s8(A);
+    int16x4x2_t d = vld2_s16(A);
 
-	int8_t *B = (int8_t *) malloc(8);
-	vst1_lane_s32(B, d, 0);
+    int16x4_t d0 = d.val[0];
+    int16x4_t d1 = d.val[1];
 
-	for (int i = 0; i < 8; i++) {
-		LOGD("B %d = %d", i, B[i]);
-	}
+    show16(d0);
+
+    show16(d1);
 }

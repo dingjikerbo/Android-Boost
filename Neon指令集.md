@@ -10,6 +10,20 @@ Q = {1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16}
 ```
 > 从数组读16个sint8到8x16的向量中
 
+# vld2_s16
+##### int16x4x2_t vld2_s16 (int16_t const * ptr)
+```
+short A[8] = {
+        1, 2, 3, 4, 5, 6, 7, 8
+};
+int16x4x2_t d = vld2_s16(A);
+int16x4_t d0 = d.val[0];
+int16x4_t d1 = d.val[1];
+d0 = {1, 3, 5, 7}
+d1 = {2, 4, 6, 8}
+```
+> 从数组中交叉读取sint16到两个16x4的向量中
+
 # vst1q_s8
 ##### void vst1q_s8 (int8_t *, int8x16_t)
 ```
