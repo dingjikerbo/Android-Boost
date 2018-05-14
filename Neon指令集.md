@@ -212,6 +212,23 @@ int16x8_t D = vmull_u8(vld1_u8(A), vld1_u8(A + 8));
 D = {9 20 33 48 65 84 105 128}
 ```
 
+# vqdmulh_s16
+##### int16x4_t vqdmulh_s16 (int16x4_t a, int16x4_t b)
+```
+short A[16] = {
+        100, 200, 300, 400, 500, 600, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+};
+
+int16x4x2_t d = vld2_s16(A);
+
+int16x4_t d0 = d.val[0];
+int16x4_t d1 = d.val[1];
+
+int16x4_t D = vqdmulh_s16(d0, d1);
+D = {0, 3, 9, 0}
+```
+> 将d0和d1相乘，结果再乘2，然后返回高一半位，或相当于结果>>16。因为此处两个16位向量相乘，结果应该为32位向量，所以高一半应该是16位。
+
 # vreinterpretq/vreinterpret
 ##### int32x2_t vreinterpret_s32_u8 (uint8x8_t)
 ```
