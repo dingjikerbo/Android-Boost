@@ -35,6 +35,31 @@ test_neon(const uchar *S_, int dwidth, uchar *D_, int *x_ofs) {
 }
 
 void
+test_neon1(const uchar *S_, int dwidth, uchar *D_, int *x_ofs) {
+    int *S = (int *) S_, *D = (int *) D_;
+
+    for (int x = 0; x < dwidth; x += 4) {
+        int32x4_t qofs = vld1q_s32(x_ofs + x);
+
+        int ofs0 = vgetq_lane_s32(qofs, 0);
+        int ofs1 = vgetq_lane_s32(qofs, 1);
+        int ofs2 = vgetq_lane_s32(qofs, 2);
+        int ofs3 = vgetq_lane_s32(qofs, 3);
+
+        int32x2_t q1 = vld1_s32(S + ofs0);
+        int32x2_t q3 = vld1_s32(S + ofs2);
+        int32x2_t q2 = vld1_s32(S + ofs1);
+        int32x2_t q4 = vld1_s32(S + ofs3);
+
+        int32x4_t qq0 = vcombine_s32(q1, q3);
+        int32x4_t qq1 = vcombine_s32(q2, q4);
+        int32x4_t qs = vtrnq_s32(qq0, qq1).val[0];
+
+        vst1q_s32(D + x, qs);
+    }
+}
+
+void
 test_c(const uchar *S, int dwidth, uchar *D, int *x_ofs) {
     for(int x = 0; x < dwidth; x++ ) {
         *(int *) (D + x * 4) = *(int *) (S + x_ofs[x] * 4);
@@ -57,7 +82,7 @@ test_c(const uchar *S, int dwidth, uchar *D, int *x_ofs) {
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_example_inuker_neon_Tester0_testInstruction(JNIEnv *env, jobject thiz) {
-    int width = 1000000;
+    int width = 10000;
     float scale = 0.5f;
     int *x_ofs = (int *) malloc(width * sizeof(int));
     for (int i = 0; i < width; i++) {
@@ -85,13 +110,13 @@ Java_com_example_inuker_neon_Tester0_testInstruction(JNIEnv *env, jobject thiz) 
     int count = 2000;
     long start = getCurrentMicrosecond();
     for (int i = 0; i < count; i++) {
-        test_c(S, width, D, x_ofs);
+        test_neon(S, width, D, x_ofs);
     }
     float time1 = (getCurrentMicrosecond() - start) / count;
 
     start = getCurrentMicrosecond();
     for (int i = 0; i < count; i++) {
-        test_neon(S, width, D2, x_ofs);
+        test_neon1(S, width, D2, x_ofs);
     }
     float time2 = (getCurrentMicrosecond() - start) / count;
     LOGD("c takes %.2fus, neon takes %.2fus, improve %.2f", time1, time2, 100 * (time1 - time2) / time1);
