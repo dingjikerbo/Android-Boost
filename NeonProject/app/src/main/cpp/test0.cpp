@@ -9,16 +9,16 @@
 typedef uint8_t uchar;
 
 void
-test_neon(const uchar *S_, int dwidth, uchar *D_, int *x_ofs) {
+test_neon(const uchar *S_, int dwidth, uchar *D_, uint16_t *x_ofs) {
     int *S = (int *) S_, *D = (int *) D_;
 
     for (int x = 0; x < dwidth; x += 4) {
-        int32x4_t qofs = vld1q_s32(x_ofs + x);
+        uint16x4_t qofs = vld1_u16(x_ofs + x);
 
-        int ofs0 = vgetq_lane_s32(qofs, 0);
-        int ofs1 = vgetq_lane_s32(qofs, 1);
-        int ofs2 = vgetq_lane_s32(qofs, 2);
-        int ofs3 = vgetq_lane_s32(qofs, 3);
+        uint ofs0 = vget_lane_u16(qofs, 0);
+        uint ofs1 = vget_lane_u16(qofs, 1);
+        uint ofs2 = vget_lane_u16(qofs, 2);
+        uint ofs3 = vget_lane_u16(qofs, 3);
 
         int32x2_t q1 = vld1_s32(S + ofs0);
         int32x2_t q2 = vld1_s32(S + ofs1);
@@ -35,16 +35,16 @@ test_neon(const uchar *S_, int dwidth, uchar *D_, int *x_ofs) {
 }
 
 void
-test_neon1(const uchar *S_, int dwidth, uchar *D_, int *x_ofs) {
+test_neon1(const uchar *S_, int dwidth, uchar *D_, uint16_t *x_ofs) {
     int *S = (int *) S_, *D = (int *) D_;
 
     for (int x = 0; x < dwidth; x += 4) {
-        int32x4_t qofs = vld1q_s32(x_ofs + x);
+        uint16x4_t qofs = vld1_u16(x_ofs + x);
 
-        int ofs0 = vgetq_lane_s32(qofs, 0);
-        int ofs1 = vgetq_lane_s32(qofs, 1);
-        int ofs2 = vgetq_lane_s32(qofs, 2);
-        int ofs3 = vgetq_lane_s32(qofs, 3);
+        uint ofs0 = vget_lane_u16(qofs, 0);
+        uint ofs1 = vget_lane_u16(qofs, 1);
+        uint ofs2 = vget_lane_u16(qofs, 2);
+        uint ofs3 = vget_lane_u16(qofs, 3);
 
         int32x2_t q1 = vld1_s32(S + ofs0);
         int32x2_t q3 = vld1_s32(S + ofs2);
@@ -60,7 +60,84 @@ test_neon1(const uchar *S_, int dwidth, uchar *D_, int *x_ofs) {
 }
 
 void
-test_c(const uchar *S, int dwidth, uchar *D, int *x_ofs) {
+test_neon2(const uchar *S_, int dwidth, uchar *D_, uint16_t *x_ofs) {
+    int *S = (int *) S_, *D = (int *) D_;
+
+    for (int x = 0; x < dwidth; x += 8) {
+        uint16x8_t qofs = vld1q_u16(x_ofs + x);
+
+        uint ofs0 = vgetq_lane_u16(qofs, 0);
+        uint ofs2 = vgetq_lane_u16(qofs, 2);
+        uint ofs1 = vgetq_lane_u16(qofs, 1);
+        uint ofs3 = vgetq_lane_u16(qofs, 3);
+        uint ofs4 = vgetq_lane_u16(qofs, 4);
+        uint ofs6 = vgetq_lane_u16(qofs, 6);
+        uint ofs5 = vgetq_lane_u16(qofs, 5);
+        uint ofs7 = vgetq_lane_u16(qofs, 7);
+
+        int32x2_t q0 = vld1_s32(S + ofs0);
+        int32x2_t q2 = vld1_s32(S + ofs2);
+        int32x2_t q1 = vld1_s32(S + ofs1);
+        int32x2_t q3 = vld1_s32(S + ofs3);
+        int32x2_t q4 = vld1_s32(S + ofs4);
+        int32x2_t q6 = vld1_s32(S + ofs6);
+        int32x2_t q5 = vld1_s32(S + ofs5);
+        int32x2_t q7 = vld1_s32(S + ofs7);
+
+        int32x4_t qq0 = vcombine_s32(q0, q2);
+        int32x4_t qq1 = vcombine_s32(q1, q3);
+        int32x4_t qs1 = vtrnq_s32(qq0, qq1).val[0];
+
+        int32x4_t qq2 = vcombine_s32(q4, q6);
+        int32x4_t qq3 = vcombine_s32(q5, q7);
+        int32x4_t qs2 = vtrnq_s32(qq2, qq3).val[0];
+
+        vst1q_s32(D + x, qs1);
+        vst1q_s32(D + x + 4, qs2);
+    }
+}
+
+void
+test_neon3(const uchar *S_, int dwidth, uchar *D_, uint16_t *x_ofs) {
+    int *S = (int *) S_, *D = (int *) D_;
+
+    for (int x = 0; x < dwidth; x += 16) {
+        uint16x8_t qofs = vld1q_u16(x_ofs + x);
+
+        uint ofs0 = vgetq_lane_u16(qofs, 0);
+        uint ofs2 = vgetq_lane_u16(qofs, 2);
+        uint ofs1 = vgetq_lane_u16(qofs, 1);
+        uint ofs3 = vgetq_lane_u16(qofs, 3);
+        uint ofs4 = vgetq_lane_u16(qofs, 4);
+        uint ofs6 = vgetq_lane_u16(qofs, 6);
+        uint ofs5 = vgetq_lane_u16(qofs, 5);
+        uint ofs7 = vgetq_lane_u16(qofs, 7);
+
+        int32x2_t q0 = vld1_s32(S + ofs0);
+        int32x2_t q2 = vld1_s32(S + ofs2);
+        int32x2_t q1 = vld1_s32(S + ofs1);
+        int32x2_t q3 = vld1_s32(S + ofs3);
+
+        int32x2_t q4 = vld1_s32(S + ofs4);
+        int32x2_t q6 = vld1_s32(S + ofs6);
+        int32x2_t q5 = vld1_s32(S + ofs5);
+        int32x2_t q7 = vld1_s32(S + ofs7);
+
+        int32x4_t qq0 = vcombine_s32(q0, q2);
+        int32x4_t qq1 = vcombine_s32(q1, q3);
+        int32x4_t qs1 = vtrnq_s32(qq0, qq1).val[0];
+
+        int32x4_t qq2 = vcombine_s32(q4, q6);
+        int32x4_t qq3 = vcombine_s32(q5, q7);
+        int32x4_t qs2 = vtrnq_s32(qq2, qq3).val[0];
+
+        vst1q_s32(D + x, qs1);
+        vst1q_s32(D + x + 4, qs2);
+    }
+}
+
+void
+test_c(const uchar *S, int dwidth, uchar *D, uint16_t *x_ofs) {
     for(int x = 0; x < dwidth; x++ ) {
         *(int *) (D + x * 4) = *(int *) (S + x_ofs[x] * 4);
     }
@@ -82,9 +159,9 @@ test_c(const uchar *S, int dwidth, uchar *D, int *x_ofs) {
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_example_inuker_neon_Tester0_testInstruction(JNIEnv *env, jobject thiz) {
-    int width = 10000;
+    int width = 40000;
     float scale = 0.5f;
-    int *x_ofs = (int *) malloc(width * sizeof(int));
+    uint16_t *x_ofs = (uint16_t *) malloc(width * sizeof(int));
     for (int i = 0; i < width; i++) {
         x_ofs[i] = std::floor(scale * i);
     }
@@ -110,13 +187,13 @@ Java_com_example_inuker_neon_Tester0_testInstruction(JNIEnv *env, jobject thiz) 
     int count = 2000;
     long start = getCurrentMicrosecond();
     for (int i = 0; i < count; i++) {
-        test_neon(S, width, D, x_ofs);
+        test_c(S, width, D, x_ofs);
     }
     float time1 = (getCurrentMicrosecond() - start) / count;
 
     start = getCurrentMicrosecond();
     for (int i = 0; i < count; i++) {
-        test_neon1(S, width, D2, x_ofs);
+        test_neon2(S, width, D2, x_ofs);
     }
     float time2 = (getCurrentMicrosecond() - start) / count;
     LOGD("c takes %.2fus, neon takes %.2fus, improve %.2f", time1, time2, 100 * (time1 - time2) / time1);
