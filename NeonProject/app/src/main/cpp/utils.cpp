@@ -11,6 +11,13 @@ int getCurrentMillisecond() {
 	                        static_cast<uint64_t>(t.tv_nsec) / 1000000);
 }
 
+int getCurrentMicrosecond() {
+	struct timespec t;
+	clock_gettime(CLOCK_MONOTONIC, &t);
+	return static_cast<int>(static_cast<uint64_t>(t.tv_sec) * 1000000 +
+							static_cast<uint64_t>(t.tv_nsec) / 1000);
+}
+
 void show8(int8x8_t d) {
 	LOGD("%d %d %d %d %d %d %d %d", vget_lane_s8(d, 0),
 	     vget_lane_s8(d, 1),
@@ -64,6 +71,13 @@ void show32q(int32x4_t q) {
 		 vgetq_lane_s32(q, 1),
 		 vgetq_lane_s32(q, 2),
 		 vgetq_lane_s32(q, 3));
+}
+
+void showu32q(uint32x4_t q) {
+	LOGD("%d %d %d %d", vgetq_lane_u32(q, 0),
+		 vgetq_lane_u32(q, 1),
+		 vgetq_lane_u32(q, 2),
+		 vgetq_lane_u32(q, 3));
 }
 
 void show32(int32x2_t d) {

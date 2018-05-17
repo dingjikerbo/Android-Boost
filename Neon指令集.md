@@ -236,3 +236,112 @@ uint8x8_t q0 = {1, 2, 3, 4, 5, 6, 7, 8}
 uint32x2_t q1 = vreinterpret_s32_u8(q0);
 q1 = {0x04030201, 0x08070605}
 ```
+
+# vrev64q_s16
+##### int16x4_t vrev64_s16 (int16x4_t vec)
+```
+short A[16] = {
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+};
+
+int16x8_t q = vld1q_s16(A);
+q = vrev64q_s16(q);
+q = {4, 3, 2, 1, 8, 7, 6, 5}
+```
+> 向量的每个元素倒序
+
+# vext_s8
+##### int8x8_t vext_s8 (int8x8_t a, int8x8_t b, const int n)
+```
+int8_t A[] ={
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+};
+int8x8_t a = vld1_s8(A);
+int8x8_t b = vld1_s8(A + 2);
+int8x8_t c = vext_s8(a, b, 1);
+c = {2 3 4 5 6 7 8 3}
+```
+> 去掉a的头1个，取a剩下的元素再拼上b的头1个元素
+
+# vld1_lane_s8
+##### uint8x8_t vld1_lane_u8 (uint8_t const * ptr, uint8x8_t src, const int lane)
+```
+int8_t a[] = {
+        1, 2, 3, 4, 5, 6, 7, 8
+};
+int8_t b[] = {
+        11, 12, 13, 14, 15, 16, 17, 18
+};
+int8_t *p = b;
+int8x8_t c = vld1_s8(a);
+int8x8_t d = vld1_lane_s8(p, c, 5);
+d = {1, 2, 3, 4, 5, 11, 7, 8}
+```
+> 即先给c拷贝到d，然后将d中的第5个lane替换成p指向的值。
+
+# vst1_lane_s8
+##### void vst1_lane_s8 (int8_t * ptr, int8x8_t val, const int lane)
+```
+int8_t a[] = {
+        1, 2, 3, 4, 5, 6, 7, 8
+};
+int8_t b[] = {
+        11, 12, 13, 14, 15, 16, 17, 18
+};
+int8_t *p = b;
+int8x8_t c = vld1_s8(a);
+vst1_lane_s8 (b, c, 1);
+b = {2, 12, 13, 14, 15, 16, 17}
+```
+> 给c向量的第1个lane存到b指向的内存
+
+# vtbl1_s8
+##### int8x8_t vtbl1_s8 (int8x8_t a, int8x8_t b)
+```
+int8_t a[] = {
+        1, 2, 3, 4, 5, 6, 7, 8
+};
+int8_t b[] = {
+        0, 1, 1, 2, 0, 1, 1, 0
+};
+int8_t *p = b;
+int8x8_t c = vld1_s8(a);
+int8x8_t d = vld1_s8(b);
+int8x8_t e = vtbl1_s8(c, d);
+e = {1 2 2 3 1 2 2 1}
+```
+> 以d向量中的元素为索引，从c向量中取对应的元素，最后组成一个向量
+
+# vtbl2_s8
+##### int8x8_t vtbl2_s8 (int8x8x2_t a, int8x8_t b)
+```
+int8_t a[] = {
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+};
+int8_t b[] = {
+        0, 9, 1, 2, 0, 1, 1, 0
+};
+int8x8x2_t c = vld2_s8(a);
+int8x8_t d = vld1_s8(b);
+int8x8_t e = vtbl2_s8(c, d);
+e = {1 4 3 5 1 3 3 1}
+```
+> 这个和上个的区别在于这里多了一个维度，所以可以给c向量看成两行，d中的索引当大于1行时就认为是从第二行的向量取元素。
+
+# vtrn_s8
+##### int8x8x2_t vtrn_s8 (int8x8_t a, int8x8_t b)
+```
+int8_t a[] = {
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+};
+int8_t b[] = {
+        0, 9, 1, 2, 0, 1, 1, 0
+};
+int8x8_t d1 = vld1_s8(a);
+int8x8_t d2 = vld1_s8(b);
+int8x8x2_t d3 = vtrn_s8(d1, d2);
+d3.val[0] = {1, 0, 3, 1, 5, 0, 7, 1}
+d3.val[1] = {2, 9, 4, 2, 6, 1, 8, 0}
+```
+> 将d1和d2两个向量交叉取值
+
