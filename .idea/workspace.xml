@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="50f9eb4d-0624-4202-bfc5-c5d44e061c9f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NeonProject/app/src/main/cpp/test0.cpp" afterPath="$PROJECT_DIR$/NeonProject/app/src/main/cpp/test0.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neon指令集.md" afterPath="$PROJECT_DIR$/Neon指令集.md" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -42,10 +41,10 @@
     </navigator>
     <panes>
       <pane id="ProjectPane" />
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="AndroidView" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">

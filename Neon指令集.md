@@ -345,3 +345,42 @@ d3.val[1] = {2, 9, 4, 2, 6, 1, 8, 0}
 ```
 > 将d1和d2两个向量交叉取值
 
+# vcleq_s32/vcgeq_s32
+##### uint32x4_t vcleq_s32 (int32x4_t a, int32x4_t b)
+```
+int a[] = {
+        100, 2, 3, 400, 5, 6, 7, 8
+};
+int b[] = {
+        10, 20, 30, 40, 50, 60, 70, 80
+};
+int32x4_t aa = vld1q_s32(a);
+int32x4_t bb = vld1q_s32(b);
+uint32x4_t cc = vcleq_s32(aa, bb);
+uint32x4_t dd = vcgeq_s32(aa, bb);
+cc = {0, 0xffffffff, 0xffffffff, 0}
+dd = {0xffffffff, 0, 0, 0xffffffff}
+```
+> vcleq_s32表示检测aa是否小于bb，如果小于则对应的向量所有bit位全部置为1，否则全部置为0
+> vcgeq_s32检测aa是否大于等于bb
+
+# vbslq_s32
+##### uint32x4_t vandq_u32 (uint32x4_t a, uint32x4_t b)
+```
+int a[] = {
+        0x10, 0x101, 3, 400, 5, 6, 7, 8
+};
+int b[] = {
+        0x111, 0x10, 30, 40, 50, 60, 70, 80
+};
+int32x4_t aa = vld1q_s32(a);
+int32x4_t bb = vld1q_s32(b);
+int32x4_t cc = vcgeq_s32(aa, bb);
+
+int32x4_t uu = vdupq_n_s32(-1);
+
+uint32x4_t ff = vbslq_s32(cc, aa, uu);
+ff = {-1, 257, -1, 400}
+```
+> 表示如果cc的向量是bit位全1，则取aa的对应向量，否则取uu的对应向量。
+
