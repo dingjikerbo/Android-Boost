@@ -86,3 +86,44 @@ A6 B6 C6 D6 E6 F6 G6 H6 A7 B7 C7 D7 E7 F7 G7 H7
 
 3, 查表法
 uint8x8_t 内部调整顺序的
+
+
+4, int16x8_t q = [K0 K0 K2 K2 K4 K4 K6 K6]
+输出d = [K0 K2 K4 K6]
+vmovn_s32(q)即可
+
+5, 对于3通道的alpha，如下K0K1 K0K1 K0K1 K2K3 K2K3 K2K3这样的，每个像素都对应两个short，一个通道3个像素，这3个像素的k都是一样的。
+如果要取两个向量分别是{K0 K2 K0 K2}和{K1 K3 K1 K3}，只要加载alpha时往后偏一个像素，
+
+```
+int16x8_t dalpha = vld1q_s16(alpha + dx * 2 + 2);// K0 K1 K0 K1 K2 K3 K2 K3
+int16x4x2_t das = vtrn_s16(vget_low_s16(dalpha), vget_high_s16(dalpha));
+int16x4_t da0 = das.val[0];// K0 K2 K0 K2
+int16x4_t da1 = das.val[1];// K1 K3 K1 K3
+```
+
+当然也可以查表
+```
+uint8_t offset2[] = {
+        0, 1, 4, 5, 2, 3, 6, 7
+};
+uint8x8_t doff2 = vld1_u8(offset2);
+
+uint16x4_t dt0 = vtbl1_u8(dalpha, doff2);// K0 K2 K1 K3
+uint16x4_t dt1 = vrev64_s32(dt0); // K1 K3 K0 K2
+uint16x4_t da0 = vext_u16(dt1, dt0, 2);// K0 K2 K0 K2
+uint16x4_t da1 = vext_u16(dt0, dt1, 2);// K1 K3 K1 K3
+```
+
+6， alpha的布局是K0K1 K0K1 K0K1 K2K3 K2K3 K2K3 K4K5 K4K5 K4K5 K6K7 K6K7 K6K7
+怎么样得到两个向量分别是{K0 K2 K4 K6}{K1 K3 K5 K7}
+
+```
+int16x8_t qalpha = vld3q_s16(alpha + dx * 2).val[0];// K0 K1 K2 K3 K4 K5 K6 K7
+
+// K0 K0 K2 K2 K4 K4 K6 K6
+// K1 K1 K3 K3 K5 K5 K7 K7
+int16x8x2_t qtalpha = vtrnq_s16(qalpha, qalpha);
+int16x4_t da0 = vmovn_s32(qtalpha.val[0]); // K0 K2 K4 K6
+int16x4_t da1 = vmovn_s32(qtalpha.val[1]); // K1 K3 K5 K7
+```

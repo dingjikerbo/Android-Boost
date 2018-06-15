@@ -73,21 +73,10 @@ test_c(const int **src, uint8_t *dst, const short *beta, int width) {
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_example_inuker_neon_Tester0_testInstruction(JNIEnv *env, jobject thiz) {
-    short arr[] = {
-           0, 1, 2, 3, 4, 5, 6, 7
-    };
-
-    int16x8_t q = vld1q_s16(arr);
-
-    int16x4_t q1 = vget_low_s16(q); // 0 1 2 3
-    int16x4_t q2 = vget_high_s16(q); // 4 5 6 7
-    int16x4_t qs1 = vext_s16(vrev64_s32(q1), q2, 2);
-    int16x4_t qs2 = vext_s16(q1, vrev64_s32(q2), 2);
-    int16x4x2_t qss = vtrn_s16(qs1, qs2);
-
-    show16(qss.val[0]);
-    show16(qss.val[1]);
-
+    int16x4_t q1 = vdup_n_s16(0x1);
+    int16x4_t q2 = vdup_n_s16(0x2);
+    int16x8_t q3 = vcombine_s16(q1, q2);
+    show16q(q3);
 
 #if 0
     srand(1);
