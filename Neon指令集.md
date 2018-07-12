@@ -236,6 +236,20 @@ uint8x8_t q0 = {1, 2, 3, 4, 5, 6, 7, 8}
 uint32x2_t q1 = vreinterpret_s32_u8(q0);
 q1 = {0x04030201, 0x08070605}
 ```
+这里是按内存排布转换的，不是完全数字意义上的转换。如果要15.3转成15就要用vcvt。
+
+# vcvtq_s32_f32
+##### int32x4_t vcvtq_s32_f32 (float32x4_t a)
+```
+float num[] = {
+        1.0, 1.2, 1.5, 1.8
+};
+
+float32x4_t ff = vld1q_f32(num);
+int32x4_t qs = vcvtq_s32_f32(ff);
+qs = {1, 1, 1, 1} 
+```
+> 对于正数，这里直接向下取整，如果都改成负数，则qs为-1, -1, -1, -1，如果想真正的向下取整怎么办
 
 # vrev64q_s16
 ##### int16x4_t vrev64_s16 (int16x4_t vec)
@@ -384,3 +398,16 @@ ff = {-1, 257, -1, 400}
 ```
 > 表示如果cc的向量是bit位全1，则取aa的对应向量，否则取uu的对应向量。
 
+# vrsqrteq_f32
+##### float32x4_t vrsqrteq_f32 (float32x4_t a)
+##### uint32x4_t vrsqrteq_u32 (uint32x4_t a)
+##### float32x2_t vrsqrte_f32 (float32x2_t a)
+```
+float num[] = {
+        1.44, 2.25, 1.21, 1.69
+};
+float32x4_t qf = vld1q_f32(num);
+qf = vrsqrteq_f32(qf);
+qf = {0.832031 0.666016 0.910156 0.769531}
+```
+> 这个函数返回向量sqrt的倒数，可见精度大概是小数点后两位，vsqrt只能用于A64.

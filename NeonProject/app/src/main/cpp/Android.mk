@@ -3,14 +3,13 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := native-lib
 
-LOCAL_SRC_FILES  := utils.cpp \
-    test0.cpp \
-    test1.cpp \
-    test2.cpp
+LOCAL_SRC_FILES  := utils.c \
+    main.c
+
 
 LOCAL_C_INCLUDES = $(LOCAL_PATH)/include
 
-LOCAL_CFLAGS += -mfpu=neon -std=c++11
+LOCAL_CFLAGS += -mfpu=neon
 #LOCAL_CFLAGS += -ffast-math -Os -funroll-loops
 LOCAL_CFLAGS += -fvisibility=hidden
 
