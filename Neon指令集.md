@@ -379,7 +379,7 @@ dd = {0xffffffff, 0, 0, 0xffffffff}
 > vcgeq_s32检测aa是否大于等于bb
 
 # vbslq_s32
-##### uint32x4_t vandq_u32 (uint32x4_t a, uint32x4_t b)
+##### float32x4_t vbslq_f32 (uint32x4_t a, float32x4_t b, float32x4_t c)
 ```
 int a[] = {
         0x10, 0x101, 3, 400, 5, 6, 7, 8
@@ -464,3 +464,41 @@ qs = vrecpsq_f32(qs, vdupq_n_f32(2.0));
 qs = {0, -6, -16, -30}
 ```
 > a每个元素乘以b的每个元素，然后2.0减去每个结果
+
+# vcageq_f32
+##### uint32x4_t vcageq_f32 (float32x4_t a, float32x4_t b)
+```
+float n1[] = {
+        1.0f, 2.0f, 3.0f, 4.0f
+};
+
+float n2[] ={
+    -2.0f, 1.0f, -3.0f, 5.0f
+};
+
+float32x4_t qf1 = vld1q_f32(n1);
+float32x4_t qf2 = vld1q_f32(n2);
+uint32x4_t q1 = vcageq_f32(qf1, qf2);
+q1 = {0, -1, -1, 0}
+```
+> 比较qf1和qf2的绝对值大小，如果大于等于则为全1，否则为0
+> 类似的有vcagtq_f32和vcaltq和vcaleq等
+
+# vmaxq_f32/vminq_f32
+##### float32x4_t vmaxq_f32 (float32x4_t a, float32x4_t b)
+##### float32x4_t vminq_f32 (float32x4_t a, float32x4_t b)
+```
+float n1[] = {
+        1.0f, 2.0f, 3.0f, 4.0f
+};
+
+float n2[] ={
+    -2.0f, 1.0f, -3.0f, 5.0f
+};
+
+float32x4_t qf1 = vld1q_f32(n1);
+float32x4_t qf2 = vld1q_f32(n2);
+float32x4_t qf3 = vmaxq_f32(qf1, qf2);
+qf3 = {1.0, 2.0, 3.0, 5.0}
+```
+> 这里是返回最大值

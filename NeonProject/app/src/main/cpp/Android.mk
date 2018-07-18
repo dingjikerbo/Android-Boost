@@ -4,12 +4,14 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := native-lib
 
 LOCAL_SRC_FILES  := utils.c \
-    main.c
+    main.c \
+    sqrt.c \
+    atan2.c
 
 
 LOCAL_C_INCLUDES = $(LOCAL_PATH)/include
 
-LOCAL_CFLAGS += -mfpu=neon
+LOCAL_CFLAGS += -mfpu=neon -fexceptions -frtti
 LOCAL_CFLAGS += -ffast-math -O3 -funroll-loops
 LOCAL_CFLAGS += -fvisibility=hidden
 
