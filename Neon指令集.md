@@ -411,3 +411,56 @@ qf = vrsqrteq_f32(qf);
 qf = {0.832031 0.666016 0.910156 0.769531}
 ```
 > 这个函数返回向量sqrt的倒数，可见精度大概是小数点后两位，vsqrt只能用于A64.
+
+# vrsqrtsq_f32
+##### float32x4_t vrsqrtsq_f32 (float32x4_t a, float32x4_t b)
+```
+float arr[] = {
+        1.0f, 4.0f, 9.0f, 16.0f
+};
+float32x4_t qs = vld1q_f32(arr);
+qs = vrsqrtsq_f32(qs, vdupq_n_f32(4.0));
+qs = {-0.5 -6.5 -16.5 -30.5}
+```
+> a每一个元素乘以b每一个元素，然后3.0减去每个结果，除以2
+
+# vzipq_f32
+##### float32x4x2_t vzipq_f32 (float32x4_t a, float32x4_t b)
+
+```
+float n1[] = {
+        1., 2., 3., 4.
+};
+float n2[] = {
+        5., 6., 7., 8.
+};
+float32x4_t qf1 = vld1q_f32(n1);
+float32x4_t qf2 = vld1q_f32(n2);
+float32x4x2_t qf = vzipq_f32(qf1, qf2);
+qf.val[0] = {1, 5, 2, 6}
+qf.val[1] = {3, 7, 4, 8}
+```
+
+# vrecpeq_f32
+##### float32x4_t vrecpeq_f32 (float32x4_t a)
+```
+float arr[] = {
+        1.0f, 4.0f, 9.0f, 16.0f
+};
+float32x4_t qs = vld1q_f32(arr);
+qs = vrecpeq_f32(qs);
+qs = {1.0, 0.25, 0.11, 0.06}
+```
+> 这个函数返回每个元素的倒数
+
+# vrecpsq_f32
+##### float32x4_t vrecpsq_f32 (float32x4_t a, float32x4_t b)
+```
+float arr[] = {
+        1.0f, 4.0f, 9.0f, 16.0f
+};
+float32x4_t qs = vld1q_f32(arr);
+qs = vrecpsq_f32(qs, vdupq_n_f32(2.0));
+qs = {0, -6, -16, -30}
+```
+> a每个元素乘以b的每个元素，然后2.0减去每个结果

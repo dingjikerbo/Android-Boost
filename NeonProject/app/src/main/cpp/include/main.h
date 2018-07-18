@@ -27,4 +27,8 @@ extern void show32(int32x2_t d);
 extern void showu32q(uint32x4_t q);
 extern void show32fq(float32x4_t qf);
 
+void sqrtfv_neon(float *x, int n, float *r);
+
+uint16_t fxpt_atan2(const int16_t y, const int16_t x);
+
 #endif //NEONPROJECT_HELLONEON_H

@@ -1,0 +1,54 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
+
+    <Button
+        android:id="@+id/bt_init"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/init" />
+    
+    <Button
+        android:id="@+id/bt_fftw_dft_2d"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fftw_dft_2d" />
+    
+    <Button
+        android:id="@+id/bt_fftw_dft_r2c_2d"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fftw_dft_r2c_2d" />
+    
+    <Button
+        android:id="@+id/bt_fftwf_dft_r2c_2d"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fftwf_dft_r2c_2d" />
+    
+    <Button
+        android:id="@+id/bt_fftwf_dft_r2c_2d_thread"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fftwf_dft_r2c_2d_thread" />
+    
+    <Button
+        android:id="@+id/bt_fftwf_dft_r2c_2d_thread_measure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fftwf_dft_r2c_2d_thread_measure" />
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/init" />
+
+</LinearLayout>

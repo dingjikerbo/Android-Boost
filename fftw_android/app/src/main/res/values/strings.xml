@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">fftw_android</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="init">Init</string>
+    <string name="fftw_dft_2d">fftw_dft_2d</string>
+    <string name="fftw_dft_r2c_2d">fftw_dft_r2c_2d</string>
+    <string name="fftwf_dft_r2c_2d">fftwf_dft_r2c_2d</string>
+    <string name="fftwf_dft_r2c_2d_thread">fftwf_dft_r2c_2d_thread</string>
+    <string name="fftwf_dft_r2c_2d_thread_measure">fftwf_dft_r2c_2d_thread_measure</string>
+
+</resources>

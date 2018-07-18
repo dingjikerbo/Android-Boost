@@ -8,7 +8,7 @@ public class MainActivity extends Activity {
 
     // Used to load the 'native-lib' library on application startup.
     static {
-        System.loadLibrary("native-lib");
+        System.loadLibrary("testfft");
     }
 
     @Override
