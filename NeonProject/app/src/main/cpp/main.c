@@ -86,16 +86,15 @@ Java_com_example_inuker_neon_Tester0_testInstruction(JNIEnv *env, jobject thiz) 
 //    }
 //    test_atan2();
 
-    float n1[] = {
-            1.0f, 2.0f, 3.0f, 4.0f
+    int num1[] = {
+            1, 2, 3, 4
     };
-
-    float n2[] ={
-        -2.0f, 1.0f, -3.0f, 5.0f
+    int num2[] = {
+            7, 6, 4, 1
     };
-
-    float32x4_t qf1 = vld1q_f32(n1);
-    float32x4_t qf2 = vld1q_f32(n2);
-    float32x4_t qf3 = vmaxq_f32(qf1, qf2);
-    show32fq(qf3);
+    int32x4_t q1 = vld1q_s32(num1);
+    int32x4_t q2 = vld1q_s32(num2);
+    int32x4_t q3 = vdupq_n_s32(1);
+    q3 = vabaq_s32(q3, q1, q2);
+    show32q(q3);
 };

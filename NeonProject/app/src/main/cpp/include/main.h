@@ -54,7 +54,6 @@ static inline float32x4_t sqrtv(float32x4_t x) {
 static inline float fast_atan2_2_boost2(float y, float x) {
     float a = fminf(fabsf(x), fabsf(y)) / fmaxf(fabsf(x), fabsf(y));
     float s = a * a;
-//    float r = ((0.15931422f * s - 0.327622764f) * s + 1.0f) * a;
 
     float r = (0.15931422f * s * s + 1.0f - 0.327622764f * s) * a;
 

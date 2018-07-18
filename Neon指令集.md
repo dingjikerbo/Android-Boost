@@ -502,3 +502,45 @@ float32x4_t qf3 = vmaxq_f32(qf1, qf2);
 qf3 = {1.0, 2.0, 3.0, 5.0}
 ```
 > 这里是返回最大值
+
+# vabsq_f32
+##### float32x4_t vabsq_f32 (float32x4_t a)
+```
+float n2[] ={
+    -2.0f, 1.0f, -3.0f, 5.0f
+};
+
+float32x4_t qf2 = vld1q_f32(n2);
+float32x4_t qf3 = vabsq_f32(qf2);
+qf3 = {2.0, 1.0, 3.0, 5.0}
+```
+> 返回绝对值
+
+# vnegq_f32
+##### float32x4_t vnegq_f32 (float32x4_t a)
+```
+float n2[] ={
+    -2.0f, 1.0f, -3.0f, 5.0f
+};
+float32x4_t qf2 = vld1q_f32(n2);
+float32x4_t qf3 = vnegq_f32(qf2);
+qf3 = {2.0, -1.0, 3.0f, -5.0}
+```
+> 返回负乘数
+
+# vabaq_s32
+##### int32x4_t vabaq_s32 (int32x4_t a, int32x4_t b, int32x4_t c)
+```
+int num1[] = {
+        1, 2, 3, 4
+};
+int num2[] = {
+        7, 6, 4, 1
+};
+int32x4_t q1 = vld1q_s32(num1);
+int32x4_t q2 = vld1q_s32(num2);
+int32x4_t q3 = vdupq_n_s32(1);
+q3 = vabaq_s32(q3, q1, q2);
+q3 = {7, 5, 2, 4}
+```
+> 返回q1和q2的差的绝对值，加上q3
