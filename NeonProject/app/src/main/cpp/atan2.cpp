@@ -306,25 +306,33 @@ void test_atan2() {
     }
     int time3 = getCurrentMicrosecond();
 
-//    for (int i = 0; i < nfft; i += 4) {
-//        float32x4_t qy = vld1q_f32(fy + i);
-//        float32x4_t qx = vld1q_f32(fx + i);
-//        float32x4_t qs = fast_atan2_2_neon(qy, qx);
-//        vst1q_f32(f3 + i, qs);
-//    }
+#if 1
+    for (int i = 0; i < nfft; i += 4) {
+        float32x4_t qy = vld1q_f32(fy + i);
+        float32x4_t qx = vld1q_f32(fx + i);
+        float32x4_t qs = fast_atan2f_neon(qy, qx);
+        vst1q_f32(f3 + i, qs);
+    }
+#else
     for (int i = 0; i < nfft; i++) {
         f3[i] = fast_atan2_2_boost(fy[i], fx[i]);
     }
+#endif
     int time4 = getCurrentMicrosecond();
 
     float sum1 = 0.0f, sum2 = 0.0f;
+    float max1 = 0.0f, max2 = 0.0f;
     for (int i = 0; i < nfft; i++) {
-        sum1 += fabsf(100 * (f2[i] - f1[i]) / f1[i]);
-        sum2 += fabsf(100 * (f3[i] - f1[i]) / f1[i]);
+        float fdif1 = fabsf((f2[i] - f1[i]) / f1[i]) * 100;
+        float fdif2 = fabsf((f3[i] - f1[i]) / f1[i]) * 100;
+        sum1 += fdif1;
+        sum2 += fdif2;
+        max1 = fmaxf(max1, fdif1);
+        max2 = fmaxf(max2, fdif2);
     }
 
-    LOGD("atan2f_c: %.4f%%, fast_atan2_2_neon: %.4f%%",
-         sum1 / nfft, sum2 / nfft);
+    LOGD("atan2f_c: %.4f%%, max = %.4f%%, fast_atan2_2_neon: %.4f%%, max = %.4f%%",
+         sum1 / nfft, max1, sum2 / nfft, max2);
 
     LOGD("atan2f = %dus, atan2f_neon= %dus, fast_atan2_2_neon=%dus",
          time2 - time1, time3 - time2, time4 - time3);

@@ -544,3 +544,15 @@ q3 = vabaq_s32(q3, q1, q2);
 q3 = {7, 5, 2, 4}
 ```
 > 返回q1和q2的差的绝对值，加上q3
+
+# vtstq_s32
+##### uint32x4_t vtstq_u32 (uint32x4_t a, uint32x4_t b)
+```
+int num[] = {0x1, 0x2, 0x7, 0xf};
+int num2[] = {0x4, 0x9, 0xb, 0xe};
+int32x4_t q1 = vld1q_s32(num);
+int32x4_t q2 = vld1q_s32(num2);
+int32x4_t q3 = vtstq_s32(q1, q2);
+q3 = {0 0 -1 -1}
+```
+> q1和q2各个元素与操作，如果结果非0，则最后为全1，否则最后全0.
