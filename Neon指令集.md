@@ -556,3 +556,15 @@ int32x4_t q3 = vtstq_s32(q1, q2);
 q3 = {0 0 -1 -1}
 ```
 > q1和q2各个元素与操作，如果结果非0，则最后为全1，否则最后全0.
+
+# veorq_s32
+##### int32x4_t veorq_s32 (int32x4_t a, int32x4_t b)
+```
+int num[] = {0x1, 0x2, 0x7, 0xf};
+int num2[] = {0x4, 0x9, 0xb, 0xe};
+int32x4_t q1 = vld1q_s32(num);
+int32x4_t q2 = vld1q_s32(num2);
+int32x4_t q3 = veorq_s32(q1, q2);
+q3 = {5 11 12 1}
+```
+> 这个函数计算各位的xor，即异或
